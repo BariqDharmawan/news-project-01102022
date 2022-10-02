@@ -183,7 +183,7 @@ $tambah = "B-".$plus;
       </div>
       <div class="row">
         <div class="col-12">
-          <a href="tabledata.php" class="btn btn-secondary">Cancel</a>
+          <a href="tableberita.php" class="btn btn-secondary">Cancel</a>
           <button type="submit" class="btn btn-success mr-2">Tambah</button>
         </div>
       </div>

@@ -3,14 +3,14 @@
 include 'koneksi.php';
 
 $id = $_POST['id'];
-$judul = $_POST['judul'];
-$tgl_post = $_POST['tgl_post'];
-$isi = $_POST ['isi'];
-$penulis = $_POST['penulis'];
-$gambar = $_POST['gambar'];
+$nama = $_POST['nama'];
+$email = $_POST['email'];
+$komentar = $_POST ['komentar'];
+$aktif = 'N';
+$id_berita = $_POST['id_berita'];
 
-mysqli_query($koneksi,"insert into tambah_post values('$id','$judul','$tgl_post','$isi','$penulis','$gambar')");
+mysqli_query($koneksi,"insert into komentar values('$id','$nama','$email','$komentar','$aktif','$id_berita')");
 
-header("location:tableberita.php");
+header("location:tablekomentar.php");
 
 ?>

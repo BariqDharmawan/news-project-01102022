@@ -1,3 +1,35 @@
+<?php session_start(); ?>
+<?php
+  error_reporting(0);
+?>
+<?php 
+include 'koneksi.php';
+
+$no = mysqli_query($koneksi, "select id from komentar order by id desc ");
+
+$kode_komentar = mysqli_fetch_array($no);
+$kode = $kode_komentar['id'];
+
+$susun = substr($kode, 3, 5);
+$plus = (int) $susun + 1;
+
+if(strlen($plus) == 1){
+
+$tambah = "K-"."0".$plus;
+
+}
+
+elseif (strlen($plus) == 2) {
+$tambah = "K-"."0".$plus;
+}
+
+else{
+
+$tambah = "K-".$plus;
+}
+
+?>
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -59,32 +91,6 @@
         <a href="#" class="nav-link">Contact</a>
       </li>
     </ul>
-
-    <!-- Right navbar links -->
-    <ul class="navbar-nav ml-auto">
-      <!-- Navbar Search -->
-      <li class="nav-item">
-        <a class="nav-link" data-widget="navbar-search" href="#" role="button">
-          <i class="fas fa-search"></i>
-        </a>
-        <div class="navbar-search-block">
-          <form class="form-inline">
-            <div class="input-group input-group-sm">
-              <input class="form-control form-control-navbar" type="search" placeholder="Search" aria-label="Search">
-              <div class="input-group-append">
-                <button class="btn btn-navbar" type="submit">
-                  <i class="fas fa-search"></i>
-                </button>
-                <button class="btn btn-navbar" type="button" data-widget="navbar-search">
-                  <i class="fas fa-times"></i>
-                </button>
-              </div>
-            </div>
-          </form>
-        </div>
-      </li>
-      <!-- Notifications Dropdown Menu -->
-    </ul>
   </nav>
   <!-- /.navbar -->
 
@@ -104,86 +110,6 @@
           <a href="#" class="d-block">Halo ! <b><?php echo $_SESSION['username']; ?></b></a>
         </div>
       </div>
-
-      <!-- SidebarSearch Form -->
-      <div class="form-inline">
-        <div class="input-group" data-widget="sidebar-search">
-          <input class="form-control form-control-sidebar" type="search" placeholder="Search" aria-label="Search">
-          <div class="input-group-append">
-            <button class="btn btn-sidebar">
-              <i class="fas fa-search fa-fw"></i>
-            </button>
-          </div>
-        </div>
-      </div>
-
-      <!-- Sidebar Menu -->
-      <nav class="mt-2">
-        <ul class="nav nav-pills nav-sidebar flex-column" data-widget="treeview" role="menu" data-accordion="false">
-          <!-- Add icons to the links using the .nav-icon class
-               with font-awesome or any other icon font library -->
-          <!-- Dashboard -->
-          <li class="nav-item menu-open">
-            <ul class="nav nav-treeview">
-              <li class="nav-item">
-                <a href="index.php" class="nav-link active">
-                  <i class="far fa-circle nav-icon"></i>
-                  <p>Beranda</p>
-                </a>
-              </li>
-            </ul>
-          </li>
-          <!-- End Dashboard -->
-          
-          
-          <li class="nav-header">Penambahan Data</li>
-          <li class="nav-item">
-            <a href="tabledata.php" class="nav-link">
-              <i class="nav-icon far fa-image"></i>
-              <p>
-                Tambah Pengguna
-              </p>
-            </a>
-          </li>
-          <li class="nav-item">
-            <a href="tableberita.php" class="nav-link">
-              <i class="nav-icon fas fa-columns"></i>
-              <p>
-                Tambah Posting
-              </p>
-            </a>
-          </li>
-          <li class="nav-item">
-            <a href="tablekomentar.php" class="nav-link">
-              <i class="nav-icon fas fa-columns"></i>
-              <p>
-                Manajemen Komentar
-              </p>
-            </a>
-          </li>
-          <!-- End Sidebar 1 -->
-
-          <!-- Sidebar 2 -->
-          <li class="nav-item">
-            <a href="#" class="nav-link">
-              <i class="nav-icon far fa-image"></i>
-              <p>
-                Galeri
-              </p>
-            </a>
-          </li>
-          <li class="nav-item">
-            <a href="../../../logout.php" class="nav-link">
-              <i class="nav-icon fas fa-columns"></i>
-              <p>
-                Logout
-              </p>
-            </a>
-          </li>
-
-        </ul>
-      </nav>
-      <!-- /.sidebar-menu -->
     </div>
     <!-- /.sidebar -->
   </aside>
@@ -191,41 +117,77 @@
   <!-- Content Wrapper. Contains page content -->
   <div class="content-wrapper">
     <!-- Content Header (Page header) -->
-    <div class="content-header">
+    <section class="content-header">
       <div class="container-fluid">
         <div class="row mb-2">
           <div class="col-sm-6">
-            <h1 class="m-0">Beranda</h1>
-          </div><!-- /.col -->
-        </div><!-- /.row -->
+            <h1>Tambah Data</h1>
+          </div>
+          <div class="col-sm-6">
+            <ol class="breadcrumb float-sm-right">
+              <li class="breadcrumb-item"><a href="tableberita.php">Table Post</a></li>
+              <li class="breadcrumb-item active">Tambah Komentar</li>
+            </ol>
+          </div>
+        </div>
       </div><!-- /.container-fluid -->
-    </div>
+    </section>
     <!-- /.content-header -->
 
     <!-- Main content -->
-    <div class="card shadow mb-4">
-            <div class="card-header py-3">
-              <h6 class="m-0 font-weight-bold text-primary">Beranda</h6>
-            </div>
-            <div class="card-body">
-              <div class="table-responsive">
-                <p>Selamat datang <b><?php echo $_SESSION['username']; ?></b>, Anda telah login dengan hak akses sebagai <b><?php echo $_SESSION['level']; ?></b>.</p>
-                <br>
-                 <p>Kontak
-                  Untuk Informasi lebih lanjut , silahkan hubungi :<br>
-                  Kantor Advokat Alman Adi <br>
-                  Jl. Cikutra, Bandung.<br>
-                  No Tlp : 085234138826</p>
-                  <br>
-                </p>
-                <!-- <img src="../assets/img/" class="img-thumbnail" href=""> -->
-                </table>
+    <section class="content">
+      <div class="row">
+        <div class="col-md-12">
+          <div class="card card-primary">
+            <div class="card-header">
+              <h3 class="card-title">Tambah Komentar</h3>
+
+              <div class="card-tools">
+                <button type="button" class="btn btn-tool" data-card-widget="collapse" title="Collapse">
+                  <i class="fas fa-minus"></i>
+                </button>
               </div>
             </div>
+            <div class="card-body">
+            <form class="forms-sample" action="tambah_komentar.php" method="POST">
+              <div class="form-group">
+                <label for="inputName">ID Komentar</label>
+                <input class="form-control" type="text" name="id" value="<?php echo $tambah;?>" readonly required="required" placeholder="Masukan ID">
+              </div>
+              <div class="form-group">
+                <label for="inputDescription">nama</label>
+                <input class="form-control" id="nama" placeholder="Masukan Nama User" type="text" name="nama" required>
+              </div>
+              <div class="form-group">
+                <label for="inputDescription">email</label>
+                <input class="form-control" id="email" placeholder="Masukan Nama User" type="email" name="email" required>
+              </div>
+              <div class="form-group">
+                <label for="inputClientCompany">Isi Komentar</label>
+                <textarea id="inputDescription" class="form-control" id="isi" placeholder="Isi keterangan komentar.." name="komentar" required rows="4"></textarea>
+                <!-- <input class="form-control" type="textarea" id="isipost" placeholder="Masukan Alamat User" name="isipost" required> -->
+              </div>
+              <div class="form-group">
+                <label for="inputClientCompany">Id Berita</label>
+                <input class="form-control" type="text" name="id_berita" value="<?php echo $_GET['id_berita']?>" readonly required="required">
+              </div>
+            </div>
+            <!-- /.card-body -->
           </div>
+          <!-- /.card -->
+        </div>
+      </div>
+      <div class="row">
+        <div class="col-12">
+          <a href="tablekomentar.php" class="btn btn-secondary">Cancel</a>
+          <button type="submit" class="btn btn-success mr-2">Tambah</button>
+        </div>
+      </div>
+    </section>
     <!-- /.content -->
   </div>
   <!-- /.content-wrapper -->
+
   <footer class="main-footer">
     <strong>Copyright &copy; 2022 <a href="https://adminlte.io">E-News</a>.</strong>
     All rights reserved.
@@ -270,7 +232,11 @@
 <script src="../plugins/summernote/summernote-bs4.min.js"></script>
 <!-- overlayScrollbars -->
 <script src="../plugins/overlayScrollbars/js/jquery.overlayScrollbars.min.js"></script>
-<!-- AdminLTE App -->
-<script src="../dist/js/adminlte.js"></script>
+<!-- AdminLTE App
+<script src="../dist/js/adminlte.js"></script> -->
+<!-- AdminLTE for demo purposes
+<script src="../dist/js/demo.js"></script> -->
+<!-- AdminLTE dashboard demo (This is only for demo purposes)
+<script src="../dist/js/pages/dashboard.js"></script> -->
 </body>
 </html>

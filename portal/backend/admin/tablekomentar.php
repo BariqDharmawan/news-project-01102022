@@ -229,7 +229,7 @@
                   
                     <?php
                     include "koneksi.php";
-                    $posting = mysqli_query($koneksi,"select * from komentar")or die(mysqli_error());
+                    $posting = mysqli_query($koneksi,"select * from komentar")or die(mysqli_error($koneksi));
                     $no = 1;
                     while ($p = mysqli_fetch_array($posting)){
                     ?> 
@@ -243,10 +243,12 @@
                       <td><?php echo $p['aktif']?></td>
                       <td><?php echo $p['id_berita']?></td>
                       <td>
-                        <a href="editberita.php?id=<?php echo $p['id']; ?>" class="btn btn-warning" role="button" aria-disabled="true"><i class="fas fa-edit">&nbspEdit</i></a>
+                        <?php if ($p['aktif'] == 'N') : ?>
+                        <a href="acceptkomentar.php?id=<?php echo $p['id']; ?>" onclick="return confirm('Apakah anda ingin menyetujui komentar ini ?')" class="btn btn-success" role="button" aria-disabled="true"><i class="fas fa-check">&nbspAcc</i></a>
+                        <?php endif; ?>
                       </td>
                        <td>
-                        <a href="hapusberita.php?id=<?php echo $p['id']; ?>" onclick="return confirm('Apakah anda ingin menghapus data ini ?')" class="btn btn-danger" role="button" aria-disabled="true"><i class="fas fa-trash">&nbspHapus</i></button>
+                        <a href="hapuskomentar.php?id=<?php echo $p['id']; ?>" onclick="return confirm('Apakah anda ingin menghapus komentar ini ?')" class="btn btn-danger" role="button" aria-disabled="true"><i class="fas fa-trash">&nbspHapus</i></a>
                       </td>
                     </tr>
                     <?php

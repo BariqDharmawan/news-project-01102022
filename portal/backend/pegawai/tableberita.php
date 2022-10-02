@@ -225,7 +225,7 @@
                           <th>Isi</th>
                           <th>Penulis</th>
                           <th>Gambar</th>
-                          <th colspan="2">Opsi</th>
+                          <th colspan="3">Opsi</th>
                         </tr>
                       </thead>
                       <tbody>
@@ -233,7 +233,7 @@
 
                         <?php
                         include "koneksi.php";
-                        $posting = mysqli_query($koneksi, "select * from tambah_post") or die(mysqli_error());
+                        $posting = mysqli_query($koneksi, "select * from tambah_post") or die(mysqli_error($koneksi));
                         $no = 1;
                         while ($p = mysqli_fetch_array($posting)) {
 
@@ -251,6 +251,9 @@
                             </td>
                             <td>
                               <a href="editberita.php?id=<?php echo $p['id']; ?>" class="btn btn-warning" role="button" aria-disabled="true"><i class="fas fa-edit">&nbspEdit</i></a>
+                            </td>
+                            <td>
+                              <a href="tambahkomentar.php?id_berita=<?php echo $p['id']; ?>" class="btn btn-primary" role="button" aria-disabled="true"><i class="fas fa-comment-dots">&nbspTambah Komentar</i></a>
                             </td>
                             <td>
                               <a href="hapusberita.php?id=<?php echo $p['id']; ?>" onclick="return confirm('Apakah anda ingin menghapus data ini ?')" class="btn btn-danger" role="button" aria-disabled="true"><i class="fas fa-trash">&nbspHapus</i></button>
